@@ -1,6 +1,7 @@
 # archInstall
 How to install arch linux from scratch, because people need something working and clear.
 This guide was inspired by [arch linux official guide](https://wiki.archlinux.org/title/Installation_guide), and [this one](https://itsfoss.com/install-arch-linux/). All the credits are theirs, I just added some more explanations and tips.
+[ENTER] is a press of the enter key.
 ## Prerequisites:
 - 1 hour of time, and some basic knowledge of computers
 - Knowing how to follow instructions, don't miss a step, that's gonna create problems for sure
@@ -40,4 +41,11 @@ To know if your PC support UEFI, enter `ls /sys/firmware/efi/efivars`: if it gen
 
 Verify that the clock is set to the right timezone `timedatectl status`, it is not type `timedatectl set-timezone Europe/Berlin` replacing `Europe/Berlin` by your own timezone (list available [here](https://timezonedb.com/time-zones)).
 
-Assure that you only have __ONE AND ONLY ONE__ drive (exluding your usb key of course) plugged into your PC: the drive you want to install arch on. __THIS DRIVE MUST BE EMPTY___, here we will install arch deleteing everything else, if you want to do something else, research by yourself.
+Assure that you only have __ONE AND ONLY ONE__ drive (exluding your usb key of course) plugged into your PC: the drive you want to install arch on. __THIS DRIVE MUST BE EMPTY__, here we will install arch by deleting everything else on the drive, if you want to do something else (like an install alongside Windows or something), research by yourself.
+
+__Last warning: going further will ERASE ALL DATA!__
+
+Now that you've been warned, enter `fdisk -l` and identify your disk and its attribution letter(normally `/dev/sdb`). Make sure you are targeting the right drive!
+Then, type `fdisk /dev/sdb` replacing `/dev/sdb` by your own disk letter if incorrect.
+
+Type `g`, then `n`, then enter two times, `+512M`
