@@ -47,7 +47,7 @@ __Last warning: going further will ERASE ALL DATA!__
 
 Now that you've been warned, enter `fdisk -l` and identify your disk and its attribution letter(normally `/dev/sdb`). Make sure you are targeting the right drive!
 Then, type `fdisk /dev/sdb` replacing `/dev/sdb` by your own disk letter if incorrect.
-Type `d[ENTER]` to erase all partitions one by one until you see the message `No partition is defined yet!`, then type `w` to save changes.
+Type `d[ENTER][ENTER]` to erase all partitions one by one until you see the message `No partition is defined yet!`, then type `w[ENTER]` to save changes.
 Execute the tool again with `fdisk /dev/sdb`, type `g[ENTER]` to create a new GPT partition table on your drive, `n[ENTER]` to create a new partition, `[ENTER]` to set it as the first partition, `[ENTER]` to set the first sector of the partition to the default one , `+512M[ENTER]` to set last sector of the partition 512 Mo after the end of the first sector (making this partition 512 Mo in size).
 
 If it asks you `Created a new partition 1 of type 'Linux filesystem' and of size 512 MiB. Partition #1 contains a XXXX signature. Do you want to remove the signature? [Y]es/[N]o:`, then type `y[ENTER]`.
