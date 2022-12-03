@@ -58,3 +58,5 @@ Again, if asked to remove precedent partition signature, agree with `y[ENTER]`.
 We will then change the partition type to swap: type `t[ENTER]`, `[ENTER]`, `19[ENTER]`.
 
 Now let's create the main partition where all the data will be, type `n[ENTER]`, `[ENTER]`, `[ENTER]`, `[ENTER]`.
+Confirm all modifications with `w[ENTER]`.
+There it is, our disk is partitionned correctly. Now, let's 
