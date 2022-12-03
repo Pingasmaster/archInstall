@@ -35,7 +35,7 @@ After connecting to the internet, the installation guide can be accessed via the
 root@archiso ~ # 
 ```
 
-##Helpfull tips
+## Helpfull tips
 
 - Put the keyboard in your language configuration: enter `loadkeys de[ENTER]` or something similar with `de` being the two letter abbreviation of your language. To list all possibilities just enter `ls /usr/share/kbd/keymaps/**/*.map.gz[ENTER]`
 - If you want to install arch via ssh for convenience (recommended, but optionnal), just type `ip addr` and your ip should appear in purple (three ip will appear, just ignore `127.0.0.1` and the one finished by `.255`) then type `passwd` and enter a password, on another machine open a terminal and type `ssh root@ip[ENTER]` replacing `ip` with your ip then re-enter the password previously set. You're then logged in! Just follow the guide from now on entering commands in the ssh window.
@@ -54,9 +54,9 @@ Assure that you only have __ONE AND ONLY ONE__ drive (exluding your usb key of c
 
 __Last warning: going further will ERASE ALL DATA!__
 
-##Install
+## Install
 
-###Disk Preparation
+### Disk Preparation
 Now that you've been warned, enter `fdisk -l[ENTER]` and identify your disk and its attribution letter(normally `/dev/sdb`). Make sure you are targeting the right drive!
 Then, type `fdisk /dev/sdb[ENTER]` replacing `/dev/sdb` by your own disk letter if incorrect.
 Type `d[ENTER][ENTER]` to erase all partitions one by one until you see the message `No partition is defined yet!`, then type `w[ENTER]` to save changes.
@@ -84,11 +84,11 @@ There it is, our disk is partitionned correctly and almost ready to go. Now, let
 It is optional but strongly recommended as this file will be kept for the new install.
 Now we will update the mirror list to a correct list for our contry with `pacman -Syy && pacman -S refector[ENTER]` and then `reflector -c "DE" -f 12 -l 10 -n 12 --save /etc/pacman.d/mirrorlist[ENTER]`. Of course replace `DE` with your own country two-letter abbreviation. If errors appear, don't mind them: it is normal that some mirror don't work sometimes (they will not be included in the new mirror list).
 
-###Base system install
+### Base system install
 
 Now, install arch linux's PGP keyring with `pacman -S archlinux-keyring[ENTER]` and install system base tools alongside arch kernel with `pacstrap -K /mnt/3 base linux linux-firmware[ENTER]`. Then generate the new file containing disks with `genfstab -U /mnt/3 >> /mnt/3/etc/fstab` and enter arch new install with `arch-chroot /mnt/3[ENTER]`. You are now logged into your new arch install!
 
-###System settings
+### System settings
 
 Set the time zone with `ln -sf /usr/share/zoneinfo/Europe/Berlin /etc/localtime[ENTER]` and synchronize hardware clock with `hwclock --systohc[ENTER]`. 
 
@@ -99,7 +99,7 @@ Then set the system language with `nano /etc/locale.conf[ENTER]` and then write 
 Alright, hold with me it's almost the end!
 Your just have to generate your hostname with `nano /etc/hostname[ENTER]` and then enter the name you want to give to your computer (no inspiration? alright, put `default` and that will do the trick).
 
-###Allow your system to boot
+### Allow your system to boot
 
 Allow you computer to boot by generating the initramfs file with `mkinitcpio -P[ENTER]`, and setting the root password (EVEN if already done with ssh config, because remember it was not the same OS! If you do not know what it is, it is your password; you forget it, you lose access to your system. Don't forget it.) with `passwd[ENTER]` which will prompt you to enter your password two times.
 
@@ -108,7 +108,7 @@ Now mount the boot partition to this folder with `mount /dev/sda1 /boot/efi[ENTE
 
 Now your PC is ready to boot! There are two last additionnal steps which are very strongly recommended, but not mandatory if you know what your are doing.
 
-###Major optionnal step 1: create another user
+### Major optionnal step 1: create another user
 
 Creating another user (than root) will not only be a ___lot___ more secure as you will be able to execute programs with less permissions, it will also be necessary if multiple people will use this PC. 
 
@@ -122,7 +122,7 @@ Set user permisions to be root with `usermod -aG wheel,audio,video,storage user[
 
 You have created an user, set his password, set correct permisions and allowed him to be root!
 
-###Major optionnal step 2: Install a GUI
+### Major optionnal step 2: Install a GUI
 
 A Graphical User Interface, just as the name says, is made to be easier than a terminal for the average user; you probably don't want be stuck with the terminal for everyday tasks (unless you are a nerdy geek just as me), so bear with me just a little more and your hard earned arch system will be ready.
 
@@ -140,6 +140,6 @@ My favourite GUI when i'm lazy is gnome, beacause it is beautifull without doing
 Install Xorg, KDE plasma Desktop environment, Wayland for KDE Plasma, and KDE applications (optionnal, you can remove `kde-applications` if you do not want them) with `pacman -Syu xorg plasma plasma-wayland-session kde-applications[ENTER]`.
 Enable them at boot with `systemctl enable sddm.service[ENTER]`.
 
-###Last steps
+### Last steps
 
 Once you're done with your install, just `exit[ENTER]`, `umount /mnt/1 && umount /mnt/3[ENTER]` (or if it complains just wait 5 min and `umount -l /mnt/1 && umount -l /mnt/3[ENTER]`) and `shutdown[ENTER]`. Don't forget to take out the usb so you can boot on your new drive. Enjoy your own arch linux!
