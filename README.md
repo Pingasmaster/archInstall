@@ -53,4 +53,8 @@ Execute the tool again with `fdisk /dev/sdb[ENTER]`, type `g[ENTER]` to create a
 If it asks you `Created a new partition 1 of type 'Linux filesystem' and of size 512 MiB. Partition #1 contains a XXXX signature. Do you want to remove the signature? [Y]es/[N]o:`, then type `y[ENTER]`.
 
 Type `t[ENTER]` to choose the partition type, `1[ENTER]` to choose an EFI partition. The first partition is done, it is the partition that will allow the system to boot. We will now create the SWAP partition, a partition allowing your system to use some of your hard drive as your RAM. You can skip this step, but as it might create problems I encourage you to just set the partition size to 1 Gb instead of just not creating it.
-Type `n[ENTER]`, 
+Type `n[ENTER]`, `[ENTER]`, `[ENTER]`, `+numberG[ENTER]` replacing number with the number of gigabytes you want the swap partition to be.
+Again, if asked to remove precedent partition signature, agree with `y[ENTER]`.
+We will then change the partition type to swap: type `t[ENTER]`, `[ENTER]`, `19[ENTER]`.
+
+Now let's create the main partition where all the data will be, type `n[ENTER]`, `[ENTER]`, `[ENTER]`, `[ENTER]`.
