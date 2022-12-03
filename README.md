@@ -141,4 +141,4 @@ Enable them at boot with `systemctl enable sddm.service[ENTER]`.
 
 ### Last steps
 
-Once you're done with your install, just `exit[ENTER]`, `umount /mnt/1 && umount -l /mnt/3[ENTER]` and `shutdown[ENTER]`. Don't forget to take out the usb so you can boot on your new drive. Enjoy your own arch linux!
+Once you're done with your install, just `exit[ENTER]`, `umount /mnt/1 && umount -l /mnt/3[ENTER]` and `shutdown now[ENTER]`. Don't forget to take out the usb so you can boot on your new drive. Enjoy your own arch linux!
