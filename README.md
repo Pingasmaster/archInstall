@@ -132,12 +132,12 @@ My favourite GUI when i'm lazy is gnome, beacause it is beautifull without doing
 
 * Gnome install
 
-Install gnome with `pacman -S xorg networkmanager gnome[ENTER]` and  enable it to boot with `systemctl enable gdm.service && systemctl enable Networkmanager.service[ENTER]`.
+Install gnome with `pacman -S xorg networkmanager gnome --needed[ENTER]` and  enable it to boot with `systemctl enable gdm.service && systemctl enable NetworkManager.service[ENTER]`.
 
 * KDE install
 
-Install Xorg, KDE plasma Desktop environment, Wayland for KDE Plasma, and KDE applications (optionnal, you can remove `kde-applications` if you do not want them) with `pacman -Syu xorg plasma plasma-wayland-session kde-applications[ENTER]`.
-Enable them at boot with `systemctl enable sddm.service[ENTER]`.
+Install Xorg, KDE plasma Desktop environment, Wayland for KDE Plasma, and KDE applications (optionnal, you can remove `kde-applications` if you do not want them) with `pacman -Syu xorg plasma plasma-wayland-session kde-applications netowrkmanager --needed[ENTER]`.
+Enable them at boot with `systemctl enable sddm.service && systemctl enable NetworkManager[ENTER]`.
 
 ### Last steps
 
