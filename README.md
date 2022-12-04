@@ -3,16 +3,17 @@
 How to install arch linux from scratch, because people need something working and clear.
 This guide was inspired by [arch linux official guide](https://wiki.archlinux.org/title/Installation_guide), and [this one](https://itsfoss.com/install-arch-linux/). All the credits are theirs, I just added some more explanations and tips.
 [ENTER] is a press of the enter key.
+If you want only the command lines and no desscription, head over to the `commands.txt` file (on this repo).
 
 ## Prerequisites:
 
 - 1 hour of time, and some basic knowledge of computers
-- Knowing how to follow instructions, don't miss a step, that's gonna create problems for sure
+- Knowing how to follow instructions, don't miss a step, that is going to create problems for sure
 - One separate PC with an OS on it
-- A working torrent / magnet client ont he separate PC (optionnal, you can also download arch iso via http)
+- A working torrent / magnet client on the separate PC (optionnal, you can also download arch iso via http)
 - An internet connection (to download the torrent and to install packages after your brand new arch install)
-- A computer with an empty drive and an internet connection via ethernet (assuming that wifi doesn't work without dirvers on linux) on wich to install arch (ALL DATA WILL BE ERASED DURING INSTALL)
-- A usb drive (the fatest you can get, if you don't have one just buy an [sandisk extreme](https://www.amazon.com/dp/B08GYM5F8G/) for around 40 bucks, you will always need a fast usb trust me these are hard to find and very usefull)
+- A computer with an empty drive and an internet connection via ethernet (sadly most of the times wifi drivers don't work on arch linux) on wich to install arch (ALL DATA WILL BE ERASED DURING INSTALL) and which actually meet arch linux requirements (amd64 (x86_64 64 bits) processor, 512Mb RAM,  2Gb hard drive for terminal-only install or else 20Gb hard drive)
+- A usb drive of at least 2Gb, 8Gb or more recommended (the fatest you can get, if you don't have one just buy an [sandisk extreme pro of 128Gb](https://www.amazon.com/dp/B08GYM5F8G/) for around 40 bucks, you will always need a fast usb trust me these are hard to find and very usefull)
 
 ## Preparing the install
 
@@ -20,10 +21,10 @@ This guide was inspired by [arch linux official guide](https://wiki.archlinux.or
 - Verify image integrity if you want, recommended on high threat model or poor internet connection, instructions are provided on the arch website. (optionnal)
 - Download and install and open [rufus](https://rufus.ie/en/) (on windows) or [balenaetcher](https://www.balena.io/etcher/) (on linux)
 - Select arch linux iso you just downloaded, plug in and select your usb drive and flash. Say yes to everything if you are using rufus
-- Wait till the end
+- Wait until the end
 - Unplug the usb drive and plug it into the pc your want to install arch on
 - Boot the pc on the usb drive, find the key you need to press at boot to show the boot menu (F12, F11, F9, F2, F1, DEL or ECHAP usually, refer to your motherboard manufacturer for this), select the usb and boot it
-- Wait till it boots and you see this screen:
+- Wait until it boots and you see this screen:
 
 ```
 To install Arch Linux follow the installation guide:
@@ -38,7 +39,7 @@ root@archiso ~ #
 ## Helpfull tips
 
 - Put the keyboard in your language configuration: enter `loadkeys de[ENTER]` or something similar with `de` being the two letter abbreviation of your language. To list all possibilities just enter `ls /usr/share/kbd/keymaps/**/*.map.gz[ENTER]`
-- If you want to install arch via ssh for convenience (recommended, but optionnal), just type `ip addr` and your ip should appear in purple (three ip will appear, just ignore `127.0.0.1` and the one finished by `.255`) then type `passwd` and enter a password, on another machine open a terminal and type `ssh root@ip[ENTER]` replacing `ip` with your ip then re-enter the password previously set. You're then logged in! Just follow the guide from now on entering commands in the ssh window.
+- If you want to install arch via ssh for convenience (recommended, but optionnal), just type `ip addr[ENTER]` and your ip should appear in purple (three ip will appear, just ignore `127.0.0.1` and the one finished by `.255`) then type `passwd[ENTER]` and enter a password, on another machine open a terminal and type `ssh root@ip[ENTER]` replacing `ip` with your ip then re-enter the password previously set. You're logged in! Just follow the guide from now on entering commands in the ssh window. It will be easier as you can copy / paste from here directly!
 
 Now you have two possibilities:
 - Your PC is old and doesn't support UEFI or doesn't support UEFI only boot: then install in the EFI way.
@@ -48,7 +49,9 @@ If you plan to install arch on a drive larger than 2 Terabytes, you need UEFI in
 
 To know if your PC support UEFI, enter `ls /sys/firmware/efi/efivars[ENTER]`: if it generates an error (`ls: cannot access '/sys/firmware/efi/efivars': No such file or directory`) then your are booted in EFI, if it shows its content then you are booted in the UEFI way.
 
-Verify that the clock is set to the right timezone `timedatectl status`, it is not type `timedatectl set-timezone Europe/Berlin[ENTER]` replacing `Europe/Berlin` by your own timezone (list available [here](https://timezonedb.com/time-zones)).
+This guide for now only shows how to install arch on an UEFI machine. For BIOS only systems, you can still follow this guide as there is a chance it wil work, however it will not be optimal and may not work at all: you have been warned.
+
+Verify that the clock is set to the right timezone `timedatectl status[ENTER]`, it is not type `timedatectl set-timezone Europe/Berlin[ENTER]` replacing `Europe/Berlin` by your own timezone (list available [here](https://timezonedb.com/time-zones)).
 
 Assure that you only have __ONE AND ONLY ONE__ drive (exluding your usb key of course) plugged into your PC: the drive you want to install arch on. __THIS DRIVE MUST BE EMPTY__, here we will install arch by deleting everything else on the drive, if you want to do something else (like an install alongside Windows or something), research by yourself.
 
@@ -57,7 +60,8 @@ __Last warning: going further will ERASE ALL DATA!__
 ## Install
 
 ### Disk Preparation
-Now that you've been warned, enter `fdisk -l[ENTER]` and identify your disk and its attribution letter(normally `/dev/sdb`). Make sure you are targeting the right drive!
+
+Now that you've been warned, enter `fdisk -l[ENTER]` and identify your disk and its attribution letter (normally `/dev/sdb`). Make sure you are targeting the right drive!
 Then, type `fdisk /dev/sdb[ENTER]` replacing `/dev/sdb` by your own disk letter if incorrect.
 Type `d[ENTER][ENTER]` to erase all partitions one by one until you see the message `No partition is defined yet!`, then type `w[ENTER]` to save changes.
 Execute the tool again with `fdisk /dev/sdb[ENTER]`, type `g[ENTER]` to create a new GPT partition table on your drive, `n[ENTER]` to create a new partition, `[ENTER]` to set it as the first partition, `[ENTER]` to set the first sector of the partition to the default one , `+512M[ENTER]` to set last sector of the partition 512 Mo after the end of the first sector (making this partition 512 Mo in size).
@@ -78,6 +82,10 @@ Enable the swap volume with `swapon /dev/sdb3[ENTER]`.
 ### Network preparation
 
 There it is, our disk is partitionned correctly and almost ready to go. Now, let's test the internet connection with `ping -c 4 google.com[ENTER]`. If something is not right, make sure the ethernet cable is connected correctly, or connect via wifi. 
+
+### Wifi connection (optionnal) {.tabset .tabset-dropdown}
+
+
 
 * Optional step: Update the mirror list
 
