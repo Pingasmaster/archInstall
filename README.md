@@ -83,11 +83,9 @@ Enable the swap volume with `swapon /dev/sdb3[ENTER]`.
 
 There it is, our disk is partitionned correctly and almost ready to go. Now, let's test the internet connection with `ping -c 4 google.com[ENTER]`. If something is not right, make sure the ethernet cable is connected correctly, or connect via wifi. 
 
-### Wifi connection (optionnal) {.tabset .tabset-dropdown}
+#### Wifi connection (optionnal)
 
-#### test
 
-test tesr
 
 * Optional step: Update the mirror list
 
