@@ -85,7 +85,9 @@ There it is, our disk is partitionned correctly and almost ready to go. Now, let
 
 ### Wifi connection (optionnal) {.tabset .tabset-dropdown}
 
+#### test
 
+test tesr
 
 * Optional step: Update the mirror list
 
