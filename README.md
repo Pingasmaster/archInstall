@@ -113,8 +113,8 @@ Allow you computer to boot by generating the initramfs file with `mkinitcpio -P[
 
 Little reminder: this tutorial is for UEFI systems only, go read README_BIOS.md if you want a BIOS tutorial. 
 
- Install the grub bootloader (what will detect the OS and boot to it) with `pacman -S grub efibootmgr[ENTER]`, create the boot directory with `mkdir /boot/efi[ENTER]`. Now run `fdisk -l`, and again see which letter your disk is attributed to (/dev/sda or /dev/sdb or ...).
- Now mount the boot partition to this folder with `mount /dev/sdb1 /boot/efi[ENTER]` and install grub with `grub-install --target=x86_64-efi --bootloader-id=GRUB --efi-directory=/boot/efi[ENTER]`. Configure grub with `grub-mkconfig -o /boot/grub/grub.cfg[ENTER]`.
+Install the grub bootloader (what will detect the OS and boot to it) with `pacman -S grub efibootmgr[ENTER]`, create the boot directory with `mkdir /boot/efi[ENTER]`. Now run `fdisk -l`, and again see which letter your disk is attributed to (/dev/sda or /dev/sdb or ...).
+Now mount the boot partition to this folder with `mount /dev/sdb1 /boot/efi[ENTER]` and install grub with `grub-install --target=x86_64-efi --bootloader-id=GRUB --efi-directory=/boot/efi[ENTER]`. Configure grub with `grub-mkconfig -o /boot/grub/grub.cfg[ENTER]`.
 
 __Tips__: 
  * If you get an error saying `EFI variables are not supported on this system.` while installing grub, you are not booted in UEFI mode! Power off the computer, boot in UEFI mode and set your keys back to your language with `loadkeys de`, mount system with `mkdir /mnt/3[ENTER]`, `mount /dev/sdb3 /mnt/3[ENTER]`, `arch-chroot /mnt/3[ENTER]`, `mount /dev/sdb1 /boot/efi[ENTER]`, and install grub again with `grub-install --target=x86_64-efi --bootloader-id=GRUB --efi-directory=/boot/efi[ENTER]`, then configure grub with `grub-mkconfig -o /boot/grub/grub.cfg[ENTER]`.
@@ -129,7 +129,7 @@ Note: Mediatek and realtek wifi cards are often not very well supported by arch 
 
 In order to have internet, install the network manager with `pacman -S networkmanager && systemctl enable NetworkManager[ENTER]` ! If you do not install that, you will NOT have any way to access internet (nor connect bluetooth devices), even with an ethernet cable plugged in or a wifi card.
 
-To connect bluetooth devices, first make sure you have a compatible bluetooth card (usually a wifi card does also bluetooth), then `pacman -S bluez bluez-tools[ENTER]`.
+To be able to connect bluetooth devices later on, first make sure you have a compatible bluetooth card (usually a wifi card does also bluetooth), then `pacman -S bluez bluez-tools[ENTER]`.
 
 ### Major optionnal step 1: create another user
 
