@@ -49,7 +49,7 @@ If you plan to install arch on a drive larger than 2 Terabytes, you need UEFI in
 
 To know if your PC support UEFI, enter `ls /sys/firmware/efi/efivars[ENTER]`: if it generates an error (`ls: cannot access '/sys/firmware/efi/efivars': No such file or directory`) then your are booted in EFI, if it shows its content then you are booted in the UEFI way.
 
-This guide for now only shows how to install arch on an UEFI machine. For BIOS only systems, you can still follow this guide as there is a chance it wil work, however it will not be optimal and may not work at all: you have been warned.
+This guide shows how to install arch both on an UEFI machine and on an older BIOS machine, all steps will be the same but for the grub install.
 
 Verify that the clock is set to the right timezone `timedatectl status[ENTER]`, it is not type `timedatectl set-timezone Europe/Berlin[ENTER]` replacing `Europe/Berlin` by your own timezone (list available [here](https://timezonedb.com/time-zones)).
 
@@ -85,7 +85,7 @@ There it is, our disk is partitionned correctly and almost ready to go. Now, let
 
 #### Wifi connection (optionnal)
 
-
+Empty for now, will be updated
 
 * Optional step: Update the mirror list
 
@@ -111,8 +111,17 @@ Your just have to generate your hostname with `nano /etc/hostname[ENTER]` and th
 
 Allow you computer to boot by generating the initramfs file with `mkinitcpio -P[ENTER]`, and setting the root password (EVEN if already done with ssh config, because remember it was not the same OS! If you do not know what it is, it is your password; you forget it, you lose access to your system. Don't forget it.) with `passwd[ENTER]` which will prompt you to enter your password two times.
 
+It is now time to remember if your system is an UEFI or BIOS system.
+
+* For UEFI systems:
+
 Install the grub bootloader (what will detect the OS and boot to it) with `pacman -S grub efibootmgr[ENTER]`, create the boot directory with `mkdir /boot/efi[ENTER]`. Now run `fdisk -l`, and again see which letter your disk is attributed to (/dev/sda or /dev/sdb or ...).
-Now mount the boot partition to this folder with `mount /dev/sda1 /boot/efi[ENTER]` and install grub with `grub-install --target=x86_64-efi --bootloader-id=GRUB --efi-directory=/boot/efi[ENTER]`. Configure grub with `grub-mkconfig -o /boot/grub/grub.cfg[ENTER]`.
+Now mount the boot partition to this folder with `mount /dev/sdb1 /boot/efi[ENTER]` and install grub with `grub-install --target=x86_64-efi --bootloader-id=GRUB --efi-directory=/boot/efi[ENTER]`. Configure grub with `grub-mkconfig -o /boot/grub/grub.cfg[ENTER]`.
+
+* For BIOS systems:
+
+Install the grub bootloader (what will detect the OS and boot to it) with `pacman -S grub[ENTER]`. Now run `fdisk -l`, and again see which letter your disk is attributed to (/dev/sda or /dev/sdb or ...).
+Now install grub with `grub-install /dev/sdb[ENTER]`. Configure grub with `grub-mkconfig -o /boot/grub/grub.cfg[ENTER]`.
 
 Now your PC is ready to boot! There are two last additionnal steps which are very strongly recommended, but not mandatory if you know what your are doing.
 
