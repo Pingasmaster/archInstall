@@ -127,9 +127,9 @@ Now your PC is ready to boot! There are two last additionnal steps which are ver
 
 Note: Mediatek and realtek wifi cards are often not very well supported by arch linux; however, intel cards such as the AX200 will be natively (I have one)!
 
-In order to have internet, install the network manager with `pacman -S networkmanager && systemctl enable NetworkManager` ! If you do not install that, you will NOT have any way to access internet (nor connect bluetooth devices), even with an ethernet cable plugged in or a wifi card.
+In order to have internet, install the network manager with `pacman -S networkmanager && systemctl enable NetworkManager[ENTER]` ! If you do not install that, you will NOT have any way to access internet (nor connect bluetooth devices), even with an ethernet cable plugged in or a wifi card.
 
-To connect bluetooth devices, first make sure you have a compatible bluetooth card (usually a wifi card does also bluetooth), then `pacman -S bluez bluez-tools`.
+To connect bluetooth devices, first make sure you have a compatible bluetooth card (usually a wifi card does also bluetooth), then `pacman -S bluez bluez-tools[ENTER]`.
 
 ### Major optionnal step 1: create another user
 
