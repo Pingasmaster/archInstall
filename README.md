@@ -118,7 +118,7 @@ It is now time to remember if your system is an UEFI or BIOS system.
  Install the grub bootloader (what will detect the OS and boot to it) with `pacman -S grub efibootmgr[ENTER]`, create the boot directory with `mkdir /boot/efi[ENTER]`. Now run `fdisk -l`, and again see which letter your disk is attributed to (/dev/sda or /dev/sdb or ...).
  Now mount the boot partition to this folder with `mount /dev/sdb1 /boot/efi[ENTER]` and install grub with `grub-install --target=x86_64-efi --bootloader-id=GRUB --efi-directory=/boot/efi[ENTER]`. Configure grub with `grub-mkconfig -o /boot/grub/grub.cfg[ENTER]`.
 
-* For BIOS systems:-linux.img
+* For BIOS systems:
 
 Install the grub bootloader (what will detect the OS and boot to it) with `pacman -S grub[ENTER]`. Now run `fdisk -l`, and again see which letter your disk is attributed to (/dev/sda or /dev/sdb or ...).
 Now install grub with `grub-install /dev/sdb[ENTER]`. Configure grub with `grub-mkconfig -o /boot/grub/grub.cfg[ENTER]`.
