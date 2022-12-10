@@ -155,7 +155,7 @@ My favourite GUI when i'm lazy is gnome, beacause it is beautifull without doing
 
 * Gnome install
 
-Install gnome with `pacman -S xorg gnome --needed[ENTER]` and  enable it to boot with `systemctl enable gdm.service && systemctl enable NetworkManager.service[ENTER]`.
+Install gnome with `pacman -S xorg gnome --needed[ENTER]` and  enable it to boot with `systemctl enable gdm.service[ENTER]`.
 
 * KDE install
 
