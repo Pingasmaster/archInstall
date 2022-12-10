@@ -77,7 +77,7 @@ To create the main partition where all the data will be, type `n[ENTER]`, `[ENTE
 Confirm all modifications with `w[ENTER]`. 
 Create the filesystem on the partitions with `mkfs.ext4 /dev/sdb3[ENTER]` to create the main filesystem, and `mkswap /dev/sdb2[ENTER]` to create the swap filesystem, and `mkfs.fat -F 32 /dev/sdb1[ENTER]` to create the EFI filesystem.
 Create mounting directory for partitions with `mkdir /mnt/1 && mkdir /mnt/3[ENTER]` for EFI and main filesystem respectively, then mount them with `mount /dev/sdb1 /mnt/1 && mount /dev/sdb3 /mnt/3[ENTER]`.
-Enable the swap volume with `swapon /dev/sdb3[ENTER]`.
+Enable the swap volume with `swapon /dev/sdb2[ENTER]`.
 
 ### Network preparation
 
