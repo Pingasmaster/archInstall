@@ -43,13 +43,13 @@ root@archiso ~ #
 
 Now you have two possibilities:
 - Your PC is old and doesn't support UEFI or doesn't support UEFI only boot: then install in the EFI way.
-- Your PC is recent, and does support UEFI only mode, then install  the UEFI way.
+- Your PC is recent, and does support UEFI only mode, then install the UEFI way.
 You can go in the bios and search for an option called `UEFI only boot` and activate it if you find it, this way the boot will be more secure and cause less problems.
 If you plan to install arch on a drive larger than 2 Terabytes, you need UEFI in order to boot into it.
 
-To know if your PC support UEFI, enter `ls /sys/firmware/efi/efivars[ENTER]`: if it generates an error (`ls: cannot access '/sys/firmware/efi/efivars': No such file or directory`) then your are booted in EFI, if it shows its content then you are booted in the UEFI way.
+To know if your PC support UEFI, enter `ls /sys/firmware/efi/efivars[ENTER]`: if it generates an error (`ls: cannot access '/sys/firmware/efi/efivars': No such file or directory`) then your are booted in EFI, otherwise you are booted in the UEFI way.
 
-This guide shows how to install arch both on an UEFI machine and on an older BIOS machine, all steps will be the same but for the grub install.
+This guide shows how to install arch on an UEFI machine, for an older BIOS only machine please refer to README_BIOS.md
 
 Verify that the clock is set to the right timezone `timedatectl status[ENTER]`, it is not type `timedatectl set-timezone Europe/Berlin[ENTER]` replacing `Europe/Berlin` by your own timezone (list available [here](https://timezonedb.com/time-zones)).
 
@@ -111,25 +111,25 @@ Your just have to generate your hostname with `nano /etc/hostname[ENTER]` and th
 
 Allow you computer to boot by generating the initramfs file with `mkinitcpio -P[ENTER]`, and setting the root password (EVEN if already done with ssh config, because remember it was not the same OS! If you do not know what it is, it is your password; you forget it, you lose access to your system. Don't forget it.) with `passwd[ENTER]` which will prompt you to enter your password two times.
 
-It is now time to remember if your system is an UEFI or BIOS system.
-
-* For UEFI systems:
+Little reminder: this tutorial is for UEFI systems only, go read README_BIOS.md if you want a BIOS tutorial. 
 
  Install the grub bootloader (what will detect the OS and boot to it) with `pacman -S grub efibootmgr[ENTER]`, create the boot directory with `mkdir /boot/efi[ENTER]`. Now run `fdisk -l`, and again see which letter your disk is attributed to (/dev/sda or /dev/sdb or ...).
  Now mount the boot partition to this folder with `mount /dev/sdb1 /boot/efi[ENTER]` and install grub with `grub-install --target=x86_64-efi --bootloader-id=GRUB --efi-directory=/boot/efi[ENTER]`. Configure grub with `grub-mkconfig -o /boot/grub/grub.cfg[ENTER]`.
 
-* For BIOS systems:
-
-Install the grub bootloader (what will detect the OS and boot to it) with `pacman -S grub[ENTER]`. Now run `fdisk -l`, and again see which letter your disk is attributed to (/dev/sda or /dev/sdb or ...).
-Now install grub with `grub-install /dev/sdb[ENTER]`. Configure grub with `grub-mkconfig -o /boot/grub/grub.cfg[ENTER]`.
-
 __Tips__: 
- * If you get an error saying `EFI variables are not supported on this system.` while installing grub, you are not booted in UEFI mode! POwer of the computer, boot in UEFI mode and set your keys back to your language with `loadkeys de`, mount system with `mkdir /mnt/3[ENTER]`, `mount /dev/sdb3 /mnt/3[ENTER]`, `arch-chroot /mnt/3[ENTER]`, `mount /dev/sdb1 /boot/efi[ENTER]`, and install grub again with `grub-install --target=x86_64-efi --bootloader-id=GRUB --efi-directory=/boot/efi[ENTER]`, then configure grub with `grub-mkconfig -o /boot/grub/grub.cfg[ENTER]`.
+ * If you get an error saying `EFI variables are not supported on this system.` while installing grub, you are not booted in UEFI mode! Power off the computer, boot in UEFI mode and set your keys back to your language with `loadkeys de`, mount system with `mkdir /mnt/3[ENTER]`, `mount /dev/sdb3 /mnt/3[ENTER]`, `arch-chroot /mnt/3[ENTER]`, `mount /dev/sdb1 /boot/efi[ENTER]`, and install grub again with `grub-install --target=x86_64-efi --bootloader-id=GRUB --efi-directory=/boot/efi[ENTER]`, then configure grub with `grub-mkconfig -o /boot/grub/grub.cfg[ENTER]`.
 
- * If you get an error saying `error: failed to get canonical path of 'airootfs'`, you forgot to `arch-chroot` back again to install grub! Follow the tip above!
-
+ * If you get an error saying `error: failed to get canonical path of 'airootfs'`, you forgot to `arch-chroot` back again to install grub after rebooting in UEFI mode! Follow the tip above carefully!
 
 Now your PC is ready to boot! There are two last additionnal steps which are very strongly recommended, but not mandatory if you know what your are doing.
+
+## Very __IMPORTANT__!!
+
+Note: Mediatek and realtek wifi cards are often not very well supported by arch linux; however, intel cards such as the AX200 will be natively (I have one)!
+
+In order to have internet, install the network manager with `pacman -S networkmanager && systemctl enable NetworkManager` ! If you do not install that, you will NOT have any way to access internet (nor connect bluetooth devices), even with an ethernet cable plugged in or a wifi card.
+
+To connect bluetooth devices, first make sure you have a compatible bluetooth card (usually a wifi card does also bluetooth), then `pacman -S bluez bluez-tools`.
 
 ### Major optionnal step 1: create another user
 
@@ -155,12 +155,12 @@ My favourite GUI when i'm lazy is gnome, beacause it is beautifull without doing
 
 * Gnome install
 
-Install gnome with `pacman -S xorg networkmanager gnome --needed[ENTER]` and  enable it to boot with `systemctl enable gdm.service && systemctl enable NetworkManager.service[ENTER]`.
+Install gnome with `pacman -S xorg gnome --needed[ENTER]` and  enable it to boot with `systemctl enable gdm.service && systemctl enable NetworkManager.service[ENTER]`.
 
 * KDE install
 
-Install Xorg, KDE plasma Desktop environment, Wayland for KDE Plasma, and KDE applications (optionnal, you can remove `kde-applications` if you do not want them) with `pacman -Syu xorg plasma plasma-wayland-session kde-applications networkmanager --needed[ENTER]`.
-Enable them at boot with `systemctl enable sddm.service && systemctl enable NetworkManager[ENTER]`.
+Install Xorg, KDE plasma Desktop environment, Wayland for KDE Plasma, and KDE applications (optionnal, you can remove `kde-applications` if you do not want them) with `pacman -Syu xorg plasma plasma-wayland-session kde-applications  --needed[ENTER]`.
+Enable them at boot with `systemctl enable sddm.service[ENTER]`.
 
 ### Last steps
 
