@@ -125,7 +125,7 @@ Install the famous root permissions manager for users with `pacman -S sudo`.
 From here, the steps can be repeated as any times as needed to create as many users as you want.
 
 Create another user with `useradd -m user[ENTER]` with `user` being the username that you can modify to suit your needs.
-Set the user password with `passwdd user[ENTER]`, and then you will be prompted to enter the user password two times.
+Set the user password with `passwd user[ENTER]`, and then you will be prompted to enter the user password two times.
 Set user permisions to be root with `usermod -aG wheel,audio,video,storage user[ENTER]` and then edit the sudoers file with `EDITOR=nano[ENTER]`, `visudo[ENTER]` and then scroll down (using the down arrow key) until you see this line: `# %wheel ALL=(ALL:ALL) ALL`, then just remove the `#` at the beginning of the line, save with CTRL+S and exit with CTRL+X.
 
 You have created an user, set his password, set correct permisions and allowed him to be root!
@@ -134,7 +134,7 @@ You have created an user, set his password, set correct permisions and allowed h
 
 A Graphical User Interface, just as the name says, is made to be easier than a terminal for the average user; you probably don't want be stuck with the terminal for everyday tasks (unless you are a nerdy geek just as me), so bear with me just a little more and your hard earned arch system will be ready.
 
-Even if you don't known what a GUI is, I encourage you to stop your install here and to go search what is a gui, and see which one you do prefer. If you are too lazy, or don't wanna be adventurous, just follow my steps. But any other website will tell you very wel how to install a gui, so just search `install gui arch linux` and follow their steps.
+Even if you don't known what a GUI is, I encourage you to stop your install here and to go search what is a gui, and see which one you do prefer. If you are too lazy, or don't wanna be adventurous, just follow my steps. But any other website will tell you very well how to install a gui, so just search `install gui arch linux` and follow their steps.
 
 My favourite GUI when i'm lazy is gnome, beacause it is beautifull without doing anything. But the most personnalisableby far is KDE, so choose what you want.
 
