@@ -90,7 +90,7 @@ There it is, our disk is partitionned correctly and almost ready to go. Now, let
 * Optional step: Update the mirror list
 
 It is optional but strongly recommended as this file will be kept for the new install.
-Now we will update the mirror list to a correct list for our contry with `pacman -Syy && pacman -S refector[ENTER]` and then `reflector -c "DE" -f 12 -l 10 -n 12 --save /etc/pacman.d/mirrorlist[ENTER]`. Of course replace `DE` with your own country two-letter abbreviation. If errors appear, don't mind them: it is normal that some mirror don't work sometimes (they will not be included in the new mirror list).
+Now we will update the mirror list to a correct list for our contry with `pacman -Syy && pacman -S reflector[ENTER]` and then `reflector -c "DE" -f 12 -l 10 -n 12 --save /etc/pacman.d/mirrorlist[ENTER]`. Of course replace `DE` with your own country two-letter abbreviation. If errors appear, don't mind them: it is normal that some mirror don't work sometimes (they will not be included in the new mirror list).
 
 ### Base system install
 
