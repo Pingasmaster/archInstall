@@ -159,7 +159,7 @@ Install gnome with `pacman -S xorg networkmanager gnome --needed[ENTER]` and  en
 
 * KDE install
 
-Install Xorg, KDE plasma Desktop environment, Wayland for KDE Plasma, and KDE applications (optionnal, you can remove `kde-applications` if you do not want them) with `pacman -Syu xorg plasma plasma-wayland-session kde-applications netowrkmanager --needed[ENTER]`.
+Install Xorg, KDE plasma Desktop environment, Wayland for KDE Plasma, and KDE applications (optionnal, you can remove `kde-applications` if you do not want them) with `pacman -Syu xorg plasma plasma-wayland-session kde-applications networkmanager --needed[ENTER]`.
 Enable them at boot with `systemctl enable sddm.service && systemctl enable NetworkManager[ENTER]`.
 
 ### Last steps
