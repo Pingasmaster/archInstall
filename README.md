@@ -5,22 +5,22 @@ This guide was inspired by [arch linux official guide](https://wiki.archlinux.or
 [ENTER] is a press of the enter key.
 If you want only the command lines and no description, head over to the `commands.txt` file (on this repo).
 
+
 ## Prerequisites:
 
 - 1 hour of time, and some basic knowledge of computers
-- Knowing how to follow instructions, don't miss a step, that is going to create problems for sure
-- One separate PC with an OS on it
-- A working torrent / magnet client on the separate PC (optionnal, you can also download arch iso via http)
+- Knowing how to follow instructions and determination
+- Another working PC (Linux or WIndows) with a torrent client if you want to download arch via torrent, but you can also download it via http
 - An internet connection (to download the torrent and to install packages after your brand new arch install)
-- A computer with an empty drive and an internet connection via ethernet (sadly most of the times wifi drivers don't work on arch linux) on wich to install arch (ALL DATA WILL BE ERASED DURING INSTALL) and which actually meet arch linux requirements (amd64 (x86_64 64 bits) processor, 512Mb RAM,  2Gb hard drive for terminal-only install or else 20Gb hard drive)
-- A usb drive of at least 2Gb, 8Gb or more recommended (the fatest you can get, if you don't have one just buy an [sandisk extreme pro of 128Gb](https://www.amazon.com/dp/B08GYM5F8G/) for around 40 bucks, you will always need a fast usb trust me these are hard to find and very usefull)
+- The computer you want to install arch on with an empty drive and an internet connection via ethernet (trust me, just for initial setup it's __way__ easier). ALL DATA WILL BE ERASED DURING INSTALL, and it must meet arch linux requirements (amd64 (x86_64 64 bits) processor, 512Mb RAM,  2Gb hard drive for terminal-only install or else 20Gb hard drive)
+- A usb drive of at least 8Gb (although more than 2gb will work, take the fatest you can get, if you don't have one just buy a [sandisk extreme pro with 128Gb](https://www.amazon.com/dp/B08GYM5F8G/) for around 40 bucks)
 
 ## Preparing the install
 
-- Download arch [official iso](https://archlinux.org/download/) from the [official website](https://archlinux.org/), either via torrent or via direct http download.
-- Verify image integrity if you want, recommended on high threat model or poor internet connection, instructions are provided on the arch website. (optionnal)
+- Download arch [official iso](https://archlinux.org/download/) from the [official website](https://archlinux.org/), either via torrent or via direct http download
+- Verify image integrity if you want, recommended on high threat model or poor internet connection, instructions are provided on the arch website (optionnal)
 - Download and install and open [rufus](https://rufus.ie/en/) (on windows) or [balenaetcher](https://www.balena.io/etcher/) (on linux)
-- Select arch linux iso you just downloaded, plug in and select your usb drive and flash. Say yes to everything if you are using rufus
+- Select the arch iso you just downloaded, plug in and select your usb drive and click flash. Say yes to everything if you are using rufus
 - Wait until the end
 - Unplug the usb drive and plug it into the pc your want to install arch on
 - Boot the pc on the usb drive, find the key you need to press at boot to show the boot menu (F12, F11, F9, F2, F1, DEL or ECHAP usually, refer to your motherboard manufacturer for this), select the usb and boot it
@@ -39,15 +39,15 @@ root@archiso ~ #
 ## Helpfull tips
 
 - Put the keyboard in your language configuration: enter `loadkeys de[ENTER]` or something similar with `de` being the two letter abbreviation of your language. To list all possibilities just enter `ls /usr/share/kbd/keymaps/**/*.map.gz[ENTER]`
-- If you want to install arch via ssh for convenience (recommended, but optionnal), just type `ip addr[ENTER]` and your ip should appear in purple (three ip will appear, just ignore `127.0.0.1` and the one finished by `.255`) then type `passwd[ENTER]` and enter a password, on another machine open a terminal and type `ssh root@ip[ENTER]` replacing `ip` with your ip then re-enter the password previously set. You're logged in! Just follow the guide from now on entering commands in the ssh window. It will be easier as you can copy / paste from here directly!
+- If you want to install arch via ssh for convenience (recommended for people who know what they are doing, but optionnal), just type `ip a[ENTER]` and your ip should appear in purple (three ip will appear, just ignore `127.0.0.1` and the one finished by `.255`) then type `passwd[ENTER]` and enter a password, on another machine open a terminal and type `ssh root@ip[ENTER]` replacing `ip` with your ip then re-enter the password previously set. You're logged in! Just follow the guide from now on entering commands in the ssh window. It will be easier as you can copy / paste from here directly!
 
 Now you have two possibilities:
-- Your PC is old and doesn't support UEFI or doesn't support UEFI only boot: then install in the EFI way.
+- Your PC is old and doesn't support UEFI or doesn't support UEFI only boot: then install in the BIOS way.
 - Your PC is recent, and does support UEFI only mode, then install the UEFI way.
-You can go in the bios and search for an option called `UEFI only boot` and activate it if you find it, this way the boot will be more secure and cause less problems.
+You can go in the bios and search for an option called `UEFI only boot` and turn it on if you find it, this way booting will be more secure and cause less problems.
 If you plan to install arch on a drive larger than 2 Terabytes, you need UEFI in order to boot into it.
 
-To know if your PC support UEFI, enter `ls /sys/firmware/efi/efivars[ENTER]`: if it generates an error (`ls: cannot access '/sys/firmware/efi/efivars': No such file or directory`) then your are booted in EFI, otherwise you are booted in the UEFI way.
+To know if your PC support UEFI, enter `ls /sys/firmware/efi/efivars[ENTER]`: if it errors with `ls: cannot access '/sys/firmware/efi/efivars': No such file or directory` then your are booted in EFI, otherwise you are booted in UEFI.
 
 This guide shows how to install arch on an UEFI machine, for an older BIOS only machine please refer to README_BIOS.md
 
