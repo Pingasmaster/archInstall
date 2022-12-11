@@ -94,7 +94,12 @@ Now we will update the mirror list to a correct list for our contry with `pacman
 
 ### Base system install
 
-Now, install arch linux's PGP keyring with `pacman -S archlinux-keyring[ENTER]` and install system base tools alongside arch kernel with `pacstrap -K /mnt/3 base linux linux-firmware[ENTER]`. Then generate the new file containing disks with `genfstab -U /mnt/3 >> /mnt/3/etc/fstab` and enter arch new install with `arch-chroot /mnt/3[ENTER]`. You are now logged into your new arch install!
+Kernel is the base of your system, and you have three main version available: 
+- linux, the normal version
+- linux-zen, with better compatibility and a little bit more performance
+- linux-hardened, with extra protections against exploits and all for paranoid people
+
+Now, install arch linux's PGP keyring with `pacman -S archlinux-keyring[ENTER]` and install system base tools alongside your favorite arch kernel with `pacstrap -K /mnt/3 base linux-hardened linux-firmware[ENTER]`. Then generate the new file containing disks with `genfstab -U /mnt/3 >> /mnt/3/etc/fstab` and enter arch new install with `arch-chroot /mnt/3[ENTER]`. You are now logged into your new arch install!
 
 ### System settings
 
