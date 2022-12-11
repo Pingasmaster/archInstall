@@ -75,7 +75,7 @@ We will then change the partition type to swap: type `t[ENTER]`, `[ENTER]`, `19[
 
 To create the main partition where all the data will be, type `n[ENTER]`, `[ENTER]`, `[ENTER]`, `[ENTER]`.
 Confirm all modifications with `w[ENTER]`. 
-Create the filesystem on the partitions with `mkfs.ext4 /dev/sdb3[ENTER]` to create the main filesystem, and `mkswap /dev/sdb2[ENTER]` to create the swap filesystem, and `mkfs.fat -F 32 /dev/sdb1[ENTER]` to create the EFI filesystem.
+Create the filesystem on the partitions with `mkfs.ext4 /dev/sdb3[ENTER]` or `mkfs.btrfs /dev/sdb3[ENTER]` (depending on the filesystem you want to use) to create the main filesystem, and `mkswap /dev/sdb2[ENTER]` to create the swap filesystem, and `mkfs.fat -F 32 /dev/sdb1[ENTER]` to create the EFI filesystem.
 Create the mounting directory for the main partition with `mkdir /mnt/3[ENTER]` , then mount it with `mount /dev/sdb3 /mnt/3[ENTER]`.
 Enable the swap volume with `swapon /dev/sdb2[ENTER]`.
 
