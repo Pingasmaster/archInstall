@@ -75,7 +75,7 @@ We will then change the partition type to swap: type `t[ENTER]`, `[ENTER]`, `19[
 
 To create the main partition where all the data will be, type `n[ENTER]`, `[ENTER]`, `[ENTER]`, `[ENTER]`.
 Confirm all modifications with `w[ENTER]`. 
-Create the filesystem on the partitions with `mkfs.ext4 /dev/sdb3[ENTER]` to create the main filesystem, and `mkswap /dev/sdb2[ENTER]` to create the swap filesystem, and `mkfs.fat -F 32 /dev/sdb1[ENTER]` to create the EFI filesystem.
+Create the filesystem on the partitions with `mkfs.ext4 /dev/sdb3[ENTER]` or `mkfs.btrfs /dev/sdb3[ENTER]` (depending on the filesystem you want to use) to create the main filesystem, and `mkswap /dev/sdb2[ENTER]` to create the swap filesystem, and `mkfs.fat -F 32 /dev/sdb1[ENTER]` to create the EFI filesystem.
 Create mounting directory for partitions with `mkdir /mnt/1 && mkdir /mnt/3[ENTER]` for EFI and main filesystem respectively, then mount them with `mount /dev/sdb1 /mnt/1 && mount /dev/sdb3 /mnt/3[ENTER]`.
 Enable the swap volume with `swapon /dev/sdb2[ENTER]`.
 
@@ -94,7 +94,12 @@ Now we will update the mirror list to a correct list for our contry with `pacman
 
 ### Base system install
 
-Now, install arch linux's PGP keyring with `pacman -S archlinux-keyring[ENTER]` and install system base tools alongside arch kernel with `pacstrap -K /mnt/3 base linux linux-firmware[ENTER]`. Then generate the new file containing disks with `genfstab -U /mnt/3 >> /mnt/3/etc/fstab` and enter arch new install with `arch-chroot /mnt/3[ENTER]`. You are now logged into your new arch install!
+Kernel is the base of your system, and you have three main version available: 
+- linux, the normal version
+- linux-zen, with better compatibility and a little bit more performance
+- linux-hardened, with extra protections against exploits and all for paranoid people
+
+Now, install arch linux's PGP keyring with `pacman -S archlinux-keyring[ENTER]` and install system base tools alongside your favorite arch kernel with `pacstrap -K /mnt/3 base linux-hardened linux-firmware[ENTER]`. Then generate the new file containing disks with `genfstab -U /mnt/3 >> /mnt/3/etc/fstab` and enter arch new install with `arch-chroot /mnt/3[ENTER]`. You are now logged into your new arch install!
 
 ### System settings
 
