@@ -102,6 +102,7 @@ EOF
 #systemctl enable gdm.service
 ## For KDE GUI
 #pacman -Syu xorg plasma plasma-wayland-session kde-applications --needed
+#systemctl enable sddm.service
 ## End of install: exit and shutdown
 # [STOP]
 exit
