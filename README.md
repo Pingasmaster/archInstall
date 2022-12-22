@@ -2,8 +2,9 @@
 
 How to install arch linux from scratch, because people need something working and clear.
 This guide was inspired by [arch linux official guide](https://wiki.archlinux.org/title/Installation_guide), and [this one](https://itsfoss.com/install-arch-linux/). All the credits are theirs, I just added some more explanations and tips.
-[ENTER] is a press of the enter key.
-If you want only the command lines and no description, head over to the `commands.txt` file (on this repo).
+Concerning the fdisk formating part, `[ENTER]` is a press of the enter key, it is not to be written like that.
+This is a somewhat complete and very detailed guide about each installation step.
+If you only want the commands to copy / paste (install over ssh, see below), head over to the `commands.md` file (on this repo).
 
 
 ## Prerequisites:
