@@ -61,10 +61,10 @@ __Last warning: going further will ERASE ALL DATA!__
 
 ### Disk Preparation
 
-Now that you've been warned, enter `fdisk -l[ENTER]` and identify your disk and its attribution letter (normally `/dev/sdb`). Make sure you are targeting the right drive!
-Then, type `fdisk /dev/sdb[ENTER]` replacing `/dev/sdb` by your own disk letter if incorrect.
+Now that you've been warned, enter `fdisk -l[ENTER]` and identify your disk and its attribution letter (normally `/dev/sda`). Make sure you are targeting the right drive!
+Then, type `fdisk /dev/sda[ENTER]` replacing `/dev/sda` by your own disk letter if incorrect.
 Type `d[ENTER][ENTER]` to erase all partitions one by one until you see the message `No partition is defined yet!`, then type `w[ENTER]` to save changes.
-Execute the tool again with `fdisk /dev/sdb[ENTER]`, type `g[ENTER]` to create a new GPT partition table on your drive, `n[ENTER]` to create a new partition, `[ENTER]` to set it as the first partition, `[ENTER]` to set the first sector of the partition to the default one , `+512M[ENTER]` to set last sector of the partition 512 Mo after the end of the first sector (making this partition 512 Mo in size).
+Execute the tool again with `fdisk /dev/sda[ENTER]`, type `g[ENTER]` to create a new GPT partition table on your drive, `n[ENTER]` to create a new partition, `[ENTER]` to set it as the first partition, `[ENTER]` to set the first sector of the partition to the default one , `+512M[ENTER]` to set last sector of the partition 512 Mo after the end of the first sector (making this partition 512 Mo in size).
 
 If it asks you `Created a new partition 1 of type 'Linux filesystem' and of size 512 MiB. Partition #1 contains a XXXX signature. Do you want to remove the signature? [Y]es/[N]o:`, then type `y[ENTER]`.
 
@@ -75,9 +75,9 @@ We will then change the partition type to swap: type `t[ENTER]`, `[ENTER]`, `19[
 
 To create the main partition where all the data will be, type `n[ENTER]`, `[ENTER]`, `[ENTER]`, `[ENTER]`.
 Confirm all modifications with `w[ENTER]`. 
-Create the filesystem on the partitions with `mkfs.ext4 /dev/sdb3[ENTER]` or `mkfs.btrfs /dev/sdb3[ENTER]` (depending on the filesystem you want to use) to create the main filesystem, and `mkswap /dev/sdb2[ENTER]` to create the swap filesystem, and `mkfs.fat -F 32 /dev/sdb1[ENTER]` to create the EFI filesystem.
-Create the mounting directory for the main partition with `mkdir /mnt/3[ENTER]` , then mount it with `mount /dev/sdb3 /mnt/3[ENTER]`.
-Enable the swap volume with `swapon /dev/sdb2[ENTER]`.
+Create the filesystem on the partitions with `mkfs.ext4 /dev/sda3[ENTER]` or `mkfs.btrfs /dev/sda3[ENTER]` (depending on the filesystem you want to use) to create the main filesystem, and `mkswap /dev/sda2[ENTER]` to create the swap filesystem, and `mkfs.fat -F 32 /dev/sda1[ENTER]` to create the EFI filesystem.
+Create the mounting directory for the main partition with `mkdir /mnt/3[ENTER]` , then mount it with `mount /dev/sda3 /mnt/3[ENTER]`.
+Enable the swap volume with `swapon /dev/sda2[ENTER]`.
 
 ### Network preparation
 
@@ -119,7 +119,7 @@ Set the root password (EVEN if already done with ssh config, because remember it
 Little reminder: this tutorial is for BIOS systems only, go read README.md if you want an UEFI tutorial. 
 
 Install the grub bootloader (what will detect the OS and boot to it) with `pacman -S grub[ENTER]`. Now run `fdisk -l`, and again see which letter your disk is attributed to (/dev/sda or /dev/sdb or ...).
-Now install grub with `grub-install /dev/sdb[ENTER]`. Configure grub with `grub-mkconfig -o /boot/grub/grub.cfg[ENTER]`.
+Now install grub with `grub-install /dev/sda[ENTER]`. Configure grub with `grub-mkconfig -o /boot/grub/grub.cfg[ENTER]`.
 
 Your PC is ready to boot! There are two last additionnal steps which are very strongly recommended, but not mandatory if you know what your are doing.
 
