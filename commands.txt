@@ -73,8 +73,9 @@ cat <<EOF > /etc/hostname
 default
 EOF
 mkinitcpio -P
+clear
+echo "Input root password:"
 passwd
-## Enter admin pasword twice
 pacman -S grub efibootmgr
 mkdir /boot/efi
 fdisk -l
@@ -85,8 +86,9 @@ grub-mkconfig -o /boot/grub/grub.cfg
 pacman -S networkmanager && systemctl enable NetworkManager
 pacman -S sudo
 useradd -m user
+clear
+echo "Input user password:"
 passwd user
-## Enter user password twice
 usermod -aG wheel,audio,video,storage user
 ## To give user sudo permissions without needing to type root password everytime - NOT RECOMMENDED
 #cat <<EOF > /etc/sudoers
