@@ -39,8 +39,8 @@ root@archiso ~ #
 
 ## Helpfull tips
 
-- Put the keyboard in your language configuration: enter `loadkeys de[ENTER]` or something similar with `de` being the two letter abbreviation of your language. To list all possibilities just enter `ls /usr/share/kbd/keymaps/**/*.map.gz[ENTER]`
-- If you want to install arch via ssh for convenience (recommended for people who know what they are doing, but optionnal), just type `ip a[ENTER]` and your ip should appear in purple (three ip will appear, just ignore `127.0.0.1` and the one finished by `.255`) then type `passwd[ENTER]` and enter a password, on another machine open a terminal and type `ssh root@ip[ENTER]` replacing `ip` with your ip then re-enter the password previously set. You're logged in! Just follow the guide from now on entering commands in the ssh window. It will be easier as you can copy / paste from here directly!
+- Put the keyboard in your language configuration: enter `loadkeys de` or something similar with `de` being the two letter abbreviation of your language. To list all possibilities just enter `ls /usr/share/kbd/keymaps/**/*.map.gz`
+- If you want to install arch via ssh for convenience (recommended for people who know what they are doing, but optionnal), just type `ip a` and your ip should appear in purple (three ip will appear, just ignore `127.0.0.1` and the one finished by `.255`) then type `passwd` and enter a password, on another machine open a terminal and type `ssh root@ip` replacing `ip` with your ip then re-enter the password previously set. You're logged in! Just follow the guide from now on entering commands in the ssh window. It will be easier as you can copy / paste from here directly!
 
 Now you have two possibilities:
 - Your PC is old and doesn't support UEFI or doesn't support UEFI only boot: then install in the BIOS way.
@@ -48,11 +48,11 @@ Now you have two possibilities:
 You can go in the bios and search for an option called `UEFI only boot` and turn it on if you find it, this way booting will be more secure and cause less problems.
 If you plan to install arch on a drive larger than 2 Terabytes, you need UEFI in order to boot into it.
 
-To know if your PC support UEFI, enter `ls /sys/firmware/efi/efivars[ENTER]`: if it errors with `ls: cannot access '/sys/firmware/efi/efivars': No such file or directory` then your are booted in EFI, otherwise you are booted in UEFI.
+To know if your PC support UEFI, enter `ls /sys/firmware/efi/efivars`: if it errors with `ls: cannot access '/sys/firmware/efi/efivars': No such file or directory` then your are booted in EFI, otherwise you are booted in UEFI.
 
 This guide shows how to install arch on an UEFI machine, for an older BIOS only machine please refer to README_BIOS.md
 
-Verify that the clock is set to the right timezone `timedatectl status[ENTER]`, it is not type `timedatectl set-timezone Europe/Berlin[ENTER]` replacing `Europe/Berlin` by your own timezone (list available [here](https://timezonedb.com/time-zones)).
+Verify that the clock is set to the right timezone `timedatectl status`, it is not type `timedatectl set-timezone Europe/Berlin` replacing `Europe/Berlin` by your own timezone (list available [here](https://timezonedb.com/time-zones)).
 
 Assure that you only have __ONE AND ONLY ONE__ drive (exluding your usb key of course) plugged into your PC: the drive you want to install arch on. __THIS DRIVE MUST BE EMPTY__, here we will install arch by deleting everything else on the drive, if you want to do something else (like an install alongside Windows or something), research by yourself.
 
@@ -76,13 +76,13 @@ We will then change the partition type to swap: type `t[ENTER]`, `[ENTER]`, `19[
 
 To create the main partition where all the data will be, type `n[ENTER]`, `[ENTER]`, `[ENTER]`, `[ENTER]`.
 Confirm all modifications with `w[ENTER]`. 
-Create the filesystem on the partitions with `mkfs.ext4 /dev/sda3[ENTER]` or `mkfs.btrfs /dev/sda3[ENTER]` (depending on the filesystem you want to use) to create the main filesystem, and `mkswap /dev/sda2[ENTER]` to create the swap filesystem, and `mkfs.fat -F 32 /dev/sda1[ENTER]` to create the EFI filesystem.
-Create mounting directory for partitions with `mkdir /mnt/1 && mkdir /mnt/3[ENTER]` for EFI and main filesystem respectively, then mount them with `mount /dev/sda1 /mnt/1 && mount /dev/sda3 /mnt/3[ENTER]`.
-Enable the swap volume with `swapon /dev/sda2[ENTER]`.
+Create the filesystem on the partitions with `mkfs.ext4 /dev/sda3` or `mkfs.btrfs /dev/sda3` (depending on the filesystem you want to use) to create the main filesystem, and `mkswap /dev/sda2` to create the swap filesystem, and `mkfs.fat -F 32 /dev/sda1` to create the EFI filesystem.
+Create mounting directory for partitions with `mkdir /mnt/1 && mkdir /mnt/3` for EFI and main filesystem respectively, then mount them with `mount /dev/sda1 /mnt/1 && mount /dev/sda3 /mnt/3`.
+Enable the swap volume with `swapon /dev/sda2`.
 
 ### Network preparation
 
-There it is, our disk is partitionned correctly and almost ready to go. Now, let's test the internet connection with `ping -c 4 google.com[ENTER]`. If something is not right, make sure the ethernet cable is connected correctly, or connect via wifi. 
+There it is, our disk is partitionned correctly and almost ready to go. Now, let's test the internet connection with `ping -c 4 google.com`. If something is not right, make sure the ethernet cable is connected correctly, or connect via wifi. 
 
 #### Wifi connection (optionnal)
 
@@ -91,7 +91,7 @@ Empty for now, will be updated
 * Optional step: Update the mirror list
 
 It is optional but strongly recommended as this file will be kept for the new install.
-Now we will update the mirror list to a correct list for our contry with `pacman -Syy && pacman -S reflector[ENTER]` and then `reflector -c "DE" -f 12 -l 10 -n 12 --save /etc/pacman.d/mirrorlist[ENTER]`. Of course replace `DE` with your own country two-letter abbreviation. If errors appear, don't mind them: it is normal that some mirror don't work sometimes (they will not be included in the new mirror list).
+Now we will update the mirror list to a correct list for our contry with `pacman -Syy && pacman -S reflector` and then `reflector -c "DE" -f 12 -l 10 -n 12 --save /etc/pacman.d/mirrorlist`. Of course replace `DE` with your own country two-letter abbreviation. If errors appear, don't mind them: it is normal that some mirror don't work sometimes (they will not be included in the new mirror list).
 
 ### Base system install
 
@@ -100,30 +100,30 @@ Kernel is the base of your system, and you have three main version available:
 - linux-zen, with better compatibility and a little bit more performance
 - linux-hardened, with extra protections against exploits and all for paranoid people
 
-Now, install arch linux's PGP keyring with `pacman -S archlinux-keyring[ENTER]` and install system base tools alongside your favorite arch kernel with `pacstrap -K /mnt/3 base linux-hardened linux-firmware[ENTER]`. Then generate the new file containing disks with `genfstab -U /mnt/3 >> /mnt/3/etc/fstab` and enter arch new install with `arch-chroot /mnt/3[ENTER]`. You are now logged into your new arch install!
+Now, install arch linux's PGP keyring with `pacman -S archlinux-keyring` and install system base tools alongside your favorite arch kernel with `pacstrap -K /mnt/3 base linux-hardened linux-firmware`. Then generate the new file containing disks with `genfstab -U /mnt/3 >> /mnt/3/etc/fstab` and enter arch new install with `arch-chroot /mnt/3`. You are now logged into your new arch install!
 
 ### System settings
 
-Set the time zone with `ln -sf /usr/share/zoneinfo/Europe/Berlin /etc/localtime[ENTER]` and synchronize hardware clock with `hwclock --systohc[ENTER]`. 
+Set the time zone with `ln -sf /usr/share/zoneinfo/Europe/Berlin /etc/localtime` and synchronize hardware clock with `hwclock --systohc`. 
 
-Install your favorite text manager (if you do not know one, type `pacman -Syu nano[ENTER]` and follow the rest of the tutorial).
+Install your favorite text manager (if you do not know one, type `pacman -Syu nano` and follow the rest of the tutorial).
 
-Now edit the locales with `nano /etc/locale.gen[ENTER]` and uncomment (remove the # in front of the name of) locales that are needed (basically just uncomment the locale corresponding to your language) and __copy their name__, then run `locale-gen[ENTER]` to apply.
-Then set the system language with `nano /etc/locale.conf[ENTER]` and then write `LANG=thenameofyourlocalethayoucopied`, save with CTRL+S and exit with CTRL+X. Then set the console language with `nano /etc/vconsole.conf[ENTER]` and write `KEYMAP=de` replacing `de` with the two-letter code of your country, save the file with CTRL+S then exit with CTRL+X.
+Now edit the locales with `nano /etc/locale.gen` and uncomment (remove the # in front of the name of) locales that are needed (basically just uncomment the locale corresponding to your language) and __copy their name__, then run `locale-gen` to apply.
+Then set the system language with `nano /etc/locale.conf` and then write `LANG=thenameofyourlocalethayoucopied`, save with CTRL+S and exit with CTRL+X. Then set the console language with `nano /etc/vconsole.conf` and write `KEYMAP=de` replacing `de` with the two-letter code of your country, save the file with CTRL+S then exit with CTRL+X.
 Alright, hold with me it's almost the end!
-Your just have to generate your hostname with `nano /etc/hostname[ENTER]` and then enter the name you want to give to your computer (no inspiration? alright, put `default` and that will do the trick).
+Your just have to generate your hostname with `nano /etc/hostname` and then enter the name you want to give to your computer (no inspiration? alright, put `default` and that will do the trick).
 
 ### Allow your system to boot
 
-Allow you computer to boot by generating the initramfs file with `mkinitcpio -P[ENTER]`, and setting the root password (EVEN if already done with ssh config, because remember it was not the same OS! If you do not know what it is, it is your password; you forget it, you lose access to your system. Don't forget it.) with `passwd[ENTER]` which will prompt you to enter your password two times.
+Allow you computer to boot by generating the initramfs file with `mkinitcpio -P`, and setting the root password (EVEN if already done with ssh config, because remember it was not the same OS! If you do not know what it is, it is your password; you forget it, you lose access to your system. Don't forget it.) with `passwd` which will prompt you to enter your password two times.
 
 Little reminder: this tutorial is for UEFI systems only, go read README_BIOS.md if you want a BIOS tutorial. 
 
-Install the grub bootloader (what will detect the OS and boot to it) with `pacman -S grub efibootmgr[ENTER]`, create the boot directory with `mkdir /boot/efi[ENTER]`. Now run `fdisk -l`, and again see which letter your disk is attributed to (/dev/sda or /dev/sdb or ...).
-Now mount the boot partition to this folder with `mount /dev/sda1 /boot/efi[ENTER]` and install grub with `grub-install --target=x86_64-efi --bootloader-id=GRUB --efi-directory=/boot/efi[ENTER]`. Configure grub with `grub-mkconfig -o /boot/grub/grub.cfg[ENTER]`.
+Install the grub bootloader (what will detect the OS and boot to it) with `pacman -S grub efibootmgr`, create the boot directory with `mkdir /boot/efi`. Now run `fdisk -l`, and again see which letter your disk is attributed to (/dev/sda or /dev/sdb or ...).
+Now mount the boot partition to this folder with `mount /dev/sda1 /boot/efi` and install grub with `grub-install --target=x86_64-efi --bootloader-id=GRUB --efi-directory=/boot/efi`. Configure grub with `grub-mkconfig -o /boot/grub/grub.cfg`.
 
 __Tips__: 
- * If you get an error saying `EFI variables are not supported on this system.` while installing grub, you are not booted in UEFI mode! Power off the computer, boot in UEFI mode and set your keys back to your language with `loadkeys de`, mount system with `mkdir /mnt/3[ENTER]`, `mount /dev/sda3 /mnt/3[ENTER]`, `arch-chroot /mnt/3[ENTER]`, `mount /dev/sda1 /boot/efi[ENTER]`, and install grub again with `grub-install --target=x86_64-efi --bootloader-id=GRUB --efi-directory=/boot/efi[ENTER]`, then configure grub with `grub-mkconfig -o /boot/grub/grub.cfg[ENTER]`.
+ * If you get an error saying `EFI variables are not supported on this system.` while installing grub, you are not booted in UEFI mode! Power off the computer, boot in UEFI mode and set your keys back to your language with `loadkeys de`, mount system with `mkdir /mnt/3`, `mount /dev/sda3 /mnt/3`, `arch-chroot /mnt/3`, `mount /dev/sda1 /boot/efi`, and install grub again with `grub-install --target=x86_64-efi --bootloader-id=GRUB --efi-directory=/boot/efi`, then configure grub with `grub-mkconfig -o /boot/grub/grub.cfg`.
 
  * If you get an error saying `error: failed to get canonical path of 'airootfs'`, you forgot to `arch-chroot` back again to install grub after rebooting in UEFI mode! Follow the tip above carefully!
 
@@ -133,9 +133,9 @@ Now your PC is ready to boot! There are two last additionnal steps which are ver
 
 Note: Mediatek and realtek wifi cards are often not very well supported by arch linux; however, intel cards such as the AX200 will be natively (I have one)!
 
-In order to have internet, install the network manager with `pacman -S networkmanager && systemctl enable NetworkManager[ENTER]` ! If you do not install that, you will NOT have any way to access internet (nor connect bluetooth devices), even with an ethernet cable plugged in or a wifi card.
+In order to have internet, install the network manager with `pacman -S networkmanager && systemctl enable NetworkManager` ! If you do not install that, you will NOT have any way to access internet (nor connect bluetooth devices), even with an ethernet cable plugged in or a wifi card.
 
-To be able to connect bluetooth devices later on, first make sure you have a compatible bluetooth card (usually a wifi card does also bluetooth), then `pacman -S bluez bluez-tools[ENTER]`.
+To be able to connect bluetooth devices later on, first make sure you have a compatible bluetooth card (usually a wifi card does also bluetooth), then `pacman -S bluez bluez-tools`.
 
 ### Major optionnal step 1: create another user
 
@@ -145,9 +145,9 @@ Install the famous root permissions manager for users with `pacman -S sudo`.
 
 From here, the steps can be repeated as any times as needed to create as many users as you want.
 
-Create another user with `useradd -m user[ENTER]` with `user` being the username that you can modify to suit your needs.
-Set the user password with `passwd user[ENTER]`, and then you will be prompted to enter the user password two times.
-Set user permisions to be root with `usermod -aG wheel,audio,video,storage user[ENTER]` and then edit the sudoers file with `EDITOR=nano[ENTER]`, `visudo[ENTER]` and then scroll down (using the down arrow key) until you see this line: `# %wheel ALL=(ALL:ALL) ALL`, then just remove the `#` at the beginning of the line, save with CTRL+S and exit with CTRL+X.
+Create another user with `useradd -m user` with `user` being the username that you can modify to suit your needs.
+Set the user password with `passwd user`, and then you will be prompted to enter the user password two times.
+Set user permisions to be root with `usermod -aG wheel,audio,video,storage user` and then edit the sudoers file with `EDITOR=nano`, `visudo` and then scroll down (using the down arrow key) until you see this line: `# %wheel ALL=(ALL:ALL) ALL`, then just remove the `#` at the beginning of the line, save with CTRL+S and exit with CTRL+X.
 
 You have created an user, set his password, set correct permisions and allowed him to be root!
 
@@ -161,13 +161,13 @@ My favourite GUI when i'm lazy is gnome, beacause it is beautifull without doing
 
 * Gnome install
 
-Install gnome with `pacman -S xorg gnome --needed[ENTER]` and  enable it to boot with `systemctl enable gdm.service[ENTER]`.
+Install gnome with `pacman -S xorg gnome --needed` and  enable it to boot with `systemctl enable gdm.service`.
 
 * KDE install
 
-Install Xorg, KDE plasma Desktop environment, Wayland for KDE Plasma, and KDE applications (optionnal, you can remove `kde-applications` if you do not want them) with `pacman -Syu xorg plasma plasma-wayland-session kde-applications  --needed[ENTER]`.
-Enable them at boot with `systemctl enable sddm.service[ENTER]`.
+Install Xorg, KDE plasma Desktop environment, Wayland for KDE Plasma, and KDE applications (optionnal, you can remove `kde-applications` if you do not want them) with `pacman -Syu xorg plasma plasma-wayland-session kde-applications  --needed`.
+Enable them at boot with `systemctl enable sddm.service`.
 
 ### Last steps
 
-Once you're done with your install, just `exit[ENTER]`, `umount /mnt/1 && umount -l /mnt/3[ENTER]` and `shutdown now[ENTER]`. Don't forget to take out the usb so you can boot on your new drive. Enjoy your own arch linux!
+Once you're done with your install, just `exit`, `umount /mnt/1 && umount -l /mnt/3` and `shutdown now`. Don't forget to take out the usb so you can boot on your new drive. Enjoy your own arch linux!
