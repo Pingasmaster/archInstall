@@ -61,10 +61,10 @@ __Last warning: going further will ERASE ALL DATA!__
 
 ### Disk Preparation
 
-Now that you've been warned, enter `fdisk -l[ENTER]` and identify your disk and its attribution letter (normally `/dev/sdb`). Make sure you are targeting the right drive!
-Then, type `fdisk /dev/sdb[ENTER]` replacing `/dev/sdb` by your own disk letter if incorrect.
+Now that you've been warned, enter `fdisk -l[ENTER]` and identify your disk and its attribution letter (normally `/dev/sda`). Make sure you are targeting the right drive!
+Then, type `fdisk /dev/sda[ENTER]` replacing `/dev/sda` by your own disk letter if incorrect.
 Type `d[ENTER][ENTER]` to erase all partitions one by one until you see the message `No partition is defined yet!`, then type `w[ENTER]` to save changes.
-Execute the tool again with `fdisk /dev/sdb[ENTER]`, type `g[ENTER]` to create a new GPT partition table on your drive, `n[ENTER]` to create a new partition, `[ENTER]` to set it as the first partition, `[ENTER]` to set the first sector of the partition to the default one , `+512M[ENTER]` to set last sector of the partition 512 Mo after the end of the first sector (making this partition 512 Mo in size).
+Execute the tool again with `fdisk /dev/sda[ENTER]`, type `g[ENTER]` to create a new GPT partition table on your drive, `n[ENTER]` to create a new partition, `[ENTER]` to set it as the first partition, `[ENTER]` to set the first sector of the partition to the default one , `+512M[ENTER]` to set last sector of the partition 512 Mo after the end of the first sector (making this partition 512 Mo in size).
 
 If it asks you `Created a new partition 1 of type 'Linux filesystem' and of size 512 MiB. Partition #1 contains a XXXX signature. Do you want to remove the signature? [Y]es/[N]o:`, then type `y[ENTER]`.
 
@@ -75,9 +75,9 @@ We will then change the partition type to swap: type `t[ENTER]`, `[ENTER]`, `19[
 
 To create the main partition where all the data will be, type `n[ENTER]`, `[ENTER]`, `[ENTER]`, `[ENTER]`.
 Confirm all modifications with `w[ENTER]`. 
-Create the filesystem on the partitions with `mkfs.ext4 /dev/sdb3[ENTER]` or `mkfs.btrfs /dev/sdb3[ENTER]` (depending on the filesystem you want to use) to create the main filesystem, and `mkswap /dev/sdb2[ENTER]` to create the swap filesystem, and `mkfs.fat -F 32 /dev/sdb1[ENTER]` to create the EFI filesystem.
-Create mounting directory for partitions with `mkdir /mnt/1 && mkdir /mnt/3[ENTER]` for EFI and main filesystem respectively, then mount them with `mount /dev/sdb1 /mnt/1 && mount /dev/sdb3 /mnt/3[ENTER]`.
-Enable the swap volume with `swapon /dev/sdb2[ENTER]`.
+Create the filesystem on the partitions with `mkfs.ext4 /dev/sda3[ENTER]` or `mkfs.btrfs /dev/sda3[ENTER]` (depending on the filesystem you want to use) to create the main filesystem, and `mkswap /dev/sda2[ENTER]` to create the swap filesystem, and `mkfs.fat -F 32 /dev/sda1[ENTER]` to create the EFI filesystem.
+Create mounting directory for partitions with `mkdir /mnt/1 && mkdir /mnt/3[ENTER]` for EFI and main filesystem respectively, then mount them with `mount /dev/sda1 /mnt/1 && mount /dev/sda3 /mnt/3[ENTER]`.
+Enable the swap volume with `swapon /dev/sda2[ENTER]`.
 
 ### Network preparation
 
@@ -119,10 +119,10 @@ Allow you computer to boot by generating the initramfs file with `mkinitcpio -P[
 Little reminder: this tutorial is for UEFI systems only, go read README_BIOS.md if you want a BIOS tutorial. 
 
 Install the grub bootloader (what will detect the OS and boot to it) with `pacman -S grub efibootmgr[ENTER]`, create the boot directory with `mkdir /boot/efi[ENTER]`. Now run `fdisk -l`, and again see which letter your disk is attributed to (/dev/sda or /dev/sdb or ...).
-Now mount the boot partition to this folder with `mount /dev/sdb1 /boot/efi[ENTER]` and install grub with `grub-install --target=x86_64-efi --bootloader-id=GRUB --efi-directory=/boot/efi[ENTER]`. Configure grub with `grub-mkconfig -o /boot/grub/grub.cfg[ENTER]`.
+Now mount the boot partition to this folder with `mount /dev/sda1 /boot/efi[ENTER]` and install grub with `grub-install --target=x86_64-efi --bootloader-id=GRUB --efi-directory=/boot/efi[ENTER]`. Configure grub with `grub-mkconfig -o /boot/grub/grub.cfg[ENTER]`.
 
 __Tips__: 
- * If you get an error saying `EFI variables are not supported on this system.` while installing grub, you are not booted in UEFI mode! Power off the computer, boot in UEFI mode and set your keys back to your language with `loadkeys de`, mount system with `mkdir /mnt/3[ENTER]`, `mount /dev/sdb3 /mnt/3[ENTER]`, `arch-chroot /mnt/3[ENTER]`, `mount /dev/sdb1 /boot/efi[ENTER]`, and install grub again with `grub-install --target=x86_64-efi --bootloader-id=GRUB --efi-directory=/boot/efi[ENTER]`, then configure grub with `grub-mkconfig -o /boot/grub/grub.cfg[ENTER]`.
+ * If you get an error saying `EFI variables are not supported on this system.` while installing grub, you are not booted in UEFI mode! Power off the computer, boot in UEFI mode and set your keys back to your language with `loadkeys de`, mount system with `mkdir /mnt/3[ENTER]`, `mount /dev/sda3 /mnt/3[ENTER]`, `arch-chroot /mnt/3[ENTER]`, `mount /dev/sda1 /boot/efi[ENTER]`, and install grub again with `grub-install --target=x86_64-efi --bootloader-id=GRUB --efi-directory=/boot/efi[ENTER]`, then configure grub with `grub-mkconfig -o /boot/grub/grub.cfg[ENTER]`.
 
  * If you get an error saying `error: failed to get canonical path of 'airootfs'`, you forgot to `arch-chroot` back again to install grub after rebooting in UEFI mode! Follow the tip above carefully!
 
