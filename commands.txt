@@ -105,6 +105,7 @@ EOF
 ## For KDE GUI
 #pacman -Syu xorg plasma plasma-wayland-session kde-applications --needed
 #systemctl enable sddm.service
+#localectl set-x11-keymap de
 ## End of install: exit and shutdown
 # [STOP]
 exit
