@@ -166,7 +166,7 @@ Install gnome with `pacman -S xorg gnome --needed` and  enable it to boot with `
 * KDE install
 
 Install Xorg, KDE plasma Desktop environment, Wayland for KDE Plasma, and KDE applications (optionnal, you can remove `kde-applications` if you do not want them) with `pacman -Syu xorg plasma plasma-wayland-session kde-applications  --needed`.
-Enable them at boot with `systemctl enable sddm.service`.
+Enable them at boot with `systemctl enable sddm.service`, and set the first login screen keyboard to your laguage with `localectl set-x11-keymap de`, replacing `de` by your locale. If for any reason this doesn't work, see [this arch wiki page on sddm.](https://wiki.archlinux.org/title/SDDM#SDDM_loads_only_US_keyboard_layout)
 
 ### Last steps
 
