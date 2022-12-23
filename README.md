@@ -157,7 +157,9 @@ A Graphical User Interface, just as the name says, is made to be easier than a t
 
 Even if you don't known what a GUI is, I encourage you to stop your install here and to go search what is a gui, and see which one you do prefer. If you are too lazy, or don't wanna be adventurous, just follow my steps. But any other website will tell you very well how to install a gui, so just search `install gui arch linux` and follow their steps.
 
-My favourite GUI when i'm lazy is gnome, beacause it is beautifull without doing anything. But the most personnalisableby far is KDE, so choose what you want.
+My favourite GUI when i'm lazy is gnome, beacause it is beautifull without doing anything. But the most personnalisable by far is KDE, so choose what you want.
+
+___OF COURSE, ONLY INSTALL MULTIPLE ONES IF YOU ARE ALREADY AN EXPERT!___ One of the above should be enough for almost everyone.
 
 * Gnome install
 
