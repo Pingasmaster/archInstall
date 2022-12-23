@@ -1,0 +1,116 @@
+## This file is a practical file, for a more detailed guide please see README.md
+## Optionnal commands are commented out once (#), whereas text is twice (##)
+## DON'T COPY / PASTE EVERYTHING!!! Some times you have to stop (indicated by [STOP]) and sometimes you have to adapt command to your drive letter (/dev/sda MIGHT NOT BE THE RIGHT ONE FOR YOU! YOU COULD LOOSE ALL YOUR DATA!!!)
+## [ENTER] means you have to press the enter key, it is only for the fdisk sequence. Fdisk is not copy / paste friendly, commands are just letters so just type them it will be shorter.
+fdisk -l
+## Look at disk letter and replace in all the following commands until the next 'fdisk -l'
+ls /sys/firmware/efi/efivars
+timedatectl set-timezone Europe/Berlin
+fdisk /dev/sda
+## Fdisk commands, don't copy / paste, see above note
+## WARNING!!! THERE IS NO TURNING BACK !!! ALL DATA ON THE DRIVE WILL BE LOST BY GOING FURTHER !!!
+d
+# [ENTER]
+d
+# [ENTER]
+d
+# [ENTER]
+d
+# [ENTER]
+g
+n
+# [ENTER]
+# [ENTER]
++512M
+t
+1
+n
+# [ENTER]
+# [ENTER]
++32G
+t
+# [ENTER]
+19
+n
+# [ENTER]
+# [ENTER]
+# [ENTER]
+w
+## End of fdisk commands
+## BEWARE THERE IS NO TURNING BACK!!!
+mkfs.fat -F 32 /dev/sda1
+mkswap /dev/sda2
+mkfs.btrfs /dev/sda3
+mkdir /mnt/1 && mkdir /mnt/3
+mount /dev/sda1 /mnt/1 && mount /dev/sda3 /mnt/3
+swapon /dev/sda2
+ping -c 4 google.com
+pacman -Syy && pacman -S reflector
+reflector -c "FR" -f 12 -l 10 -n 12 --save /etc/pacman.d/mirrorlist
+pacman -S archlinux-keyring
+pacstrap -K /mnt/3 base linux-hardened linux-firmware
+genfstab -U /mnt/3 >> /mnt/3/etc/fstab
+arch-chroot /mnt/3
+# [STOP]
+ln -sf /usr/share/zoneinfo/Europe/Berlin /etc/localtime
+hwclock --systohc
+pacman -Syu nano
+## Put your locale!
+cat <<EOF > /etc/locale.gen
+de_DE.UTF-8 UTF-8
+EOF
+locale-gen
+## Again, put your locale!
+cat <<EOF > /etc/locale.conf
+LANG=de_DE.UTF-8
+EOF
+## Again, put your locale!
+cat <<EOF > /etc/vconsole.conf
+KEYMAP=de
+EOF
+## Replace default with your hostname of choice
+cat <<EOF > /etc/hostname
+default
+EOF
+mkinitcpio -P
+clear
+echo "Input root password:"
+passwd
+pacman -S grub efibootmgr
+mkdir /boot/efi
+fdisk -l
+## Look at disk letter again, it might have changed!
+mount /dev/sda1 /boot/efi
+grub-install --target=x86_64-efi --bootloader-id=GRUB --efi-directory=/boot/efi
+grub-mkconfig -o /boot/grub/grub.cfg
+pacman -S networkmanager && systemctl enable NetworkManager
+pacman -S sudo
+useradd -m user
+clear
+echo "Input user password:"
+passwd user
+usermod -aG wheel,audio,video,storage user
+## To give user sudo permissions without needing to type root password everytime - NOT RECOMMENDED
+#cat <<EOF > /etc/sudoers
+#user ALL=(ALL:ALL) NOPASSWD: ALL
+#EOF
+## To give user normal sudo permissions
+cat <<EOF > /etc/sudoers
+user ALL=(ALL:ALL) ALL
+EOF
+## Uncomment the section relevant to your GUI, optionnal if you don't want one
+## For GNOME GUI
+#pacman -S xorg gnome --needed
+#systemctl enable gdm.service
+## For KDE GUI
+#pacman -Syu xorg plasma plasma-wayland-session kde-applications --needed
+#systemctl enable sddm.service
+#localectl set-x11-keymap de
+## End of install: exit and shutdown
+# [STOP]
+exit
+umount /mnt/1
+umount /mnt/3
+## If "umount /mnt/3" fails execute this line
+# umount -l /mnt/3
+shutdown now
