@@ -4,7 +4,7 @@ How to install arch linux from scratch, because people need something working an
 This guide was inspired by [arch linux official guide](https://wiki.archlinux.org/title/Installation_guide), and [this one](https://itsfoss.com/install-arch-linux/). All the credits are theirs, I just added some more explanations and tips.
 Concerning the fdisk formating part, `[ENTER]` is a press of the enter key, it is not to be written like that.
 This is a somewhat complete and very detailed guide about each installation step.
-If you only want the commands to copy / paste (install over ssh, see below), head over to the `commands_BIOS.md` file (on this repo).
+If you only want the commands to copy / paste (install over ssh, see below), head over to the `commands_BIOS.txt` file (on this repo).
 This is the BIOS version, see README.md for the UEFI version.
 
 ## Prerequisites:
