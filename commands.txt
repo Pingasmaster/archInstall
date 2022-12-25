@@ -6,6 +6,7 @@ fdisk -l
 ## Look at disk letter and replace in all the following commands until the next 'fdisk -l'
 ls /sys/firmware/efi/efivars
 timedatectl set-timezone Europe/Berlin
+## or 'timedatectl set-ntp true' to set date automatically
 fdisk /dev/sda
 ## Fdisk commands, don't copy / paste, see above note
 ## WARNING!!! THERE IS NO TURNING BACK !!! ALL DATA ON THE DRIVE WILL BE LOST BY GOING FURTHER !!!
