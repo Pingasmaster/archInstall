@@ -163,6 +163,10 @@ Install gnome with `pacman -S xorg gnome --needed` and  enable it to boot with `
 Install Xorg, KDE plasma Desktop environment, Wayland for KDE Plasma, and KDE applications (optionnal, you can remove `kde-applications` if you do not want them) with `pacman -Syu xorg plasma plasma-wayland-session kde-applications  --needed`.
 Enable them at boot with `systemctl enable sddm.service`, and set the first login screen keyboard locale to yours with `localectl set-x11-keymap de`, replacing `de` by your locale. If for any reason this doesn't work, see [this arch wiki page on sddm.](https://wiki.archlinux.org/title/SDDM#SDDM_loads_only_US_keyboard_layout)
 
+### Optionnal step 3
+
+Make pacman (the default package manager on arch linux) faster by enabling parrallel downloads! Edit `nano /etc/pacman.conf`, and add `ParallelDownloads = 1000` somewhere in the file.
+
 ### Last steps
 
 Once you're done with your install, just `exit`, `umount /mnt/3` (or if it gives an error wait a minute then do  `umount -l /mnt/3`)  and `shutdown now`. Don't forget to take out the usb so you can boot on your new drive. Enjoy your own arch linux!
