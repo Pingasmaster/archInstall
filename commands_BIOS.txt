@@ -58,6 +58,9 @@ arch-chroot /mnt/3
 ln -sf /usr/share/zoneinfo/Europe/Berlin /etc/localtime
 hwclock --systohc
 pacman -Syu nano
+cat <<EOF >> /etc/pacman.conf
+ParallelDownloads = 1000
+EOF
 ## Put your locale!
 cat <<EOF > /etc/locale.gen
 de_DE.UTF-8 UTF-8
